@@ -1,0 +1,8 @@
+REAL LIFE 3D - prototype 0.3 (Godot 4)
+
+Ouvrir project.godot dans Godot 4 et appuyer sur F5.
+Le serveur accepte jusqu a 20 joueurs, y compris en cours de partie.
+Connexion actuelle : adresse IP de l hote, port UDP 24567.
+ATTENTION : les codes courts de salon et la connexion automatique via Internet ne sont PAS encore implementes.
+Pour jouer depuis des reseaux differents, utiliser un VPN prive compatible ou configurer soigneusement le reseau.
+Prototype non teste dans Godot ici ; pas de comptes ni de sauvegardes.
