@@ -1,26 +1,20 @@
-# REAL LIFE 3D
+# REAL LIFE 3D — serveur de salons (prototype)
 
-Prototype de simulation de vie 3D multijoueur créé avec **Godot 4**.
+Ce dossier ajoute un serveur Node.js WebSocket indépendant du projet Godot existant.
+Il permet de créer un salon avec code de 6 caractères, rejoindre une partie déjà commencée et transmettre des positions à 20 joueurs par salon.
 
-## Installation
-1. Installer [Godot 4](https://godotengine.org/download/).
-2. Importer `project.godot` dans Godot.
-3. Lancer avec **F5**.
+## Installation GitHub
+Copier `package.json` et le dossier `server` à la racine du dépôt.
 
-## Multijoueur
-- Héberger : jusqu’à **20 joueurs**, connexion possible pendant une partie.
-- Rejoindre : saisir **l’adresse IP** de l’hôte.
-- Port : **UDP 24567**. Sur Internet, une configuration réseau ou un VPN privé peut être nécessaire.
-- **Important :** les codes de salon courts et la connexion automatique par code ne sont **pas encore développés**. GitHub Pages ne peut pas héberger directement un serveur Godot ENet.
+## Render
+Créer un **Web Service** avec Language **Node**, Build Command `npm install`, Start Command `npm start`, Root Directory vide. Render fournit automatiquement `PORT`.
 
-## Commandes
-ZQSD/WASD : bouger · Souris : caméra · Espace : sauter · Échap : menu.
+## Protocole WebSocket
+Connecter le client à `wss://VOTRE-SERVICE.onrender.com`.
+Envoyer `{"type":"create"}` ou `{"type":"join","code":"ABC123"}`.
+Réponse `joined` avec `code`, `id`, `players`.
+Envoyer `{"type":"move","x":0,"y":2,"z":0,"yaw":0}`.
+Recevoir `entered`, `moved`, `left`, `error`.
 
-## État du projet
-Prototype avec formes 3D simples, sans sauvegarde ni comptes. Non testé automatiquement dans Godot.
-
-## Structure
-- `project.godot` : configuration du projet
-- `Main.tscn` : scène principale
-- `main.gd` : monde, interface et réseau
-- `player.gd` : personnage et déplacements
+## Limites importantes
+Le jeu Godot actuel utilise ENet/UDP : **il ne se connectera pas à ce serveur sans modifier `main.gd` pour utiliser WebSocketPeer et ce protocole JSON**. Le serveur n'héberge pas la scène 3D et ne rend pas le jeu jouable dans un navigateur. Les salons et positions sont en mémoire, disparaissent lors du redémarrage, sans comptes, anti-triche ni persistance. Le propriétaire du salon n'est pas privilégié. Les performances pour 20 joueurs n'ont pas été testées.
